@@ -101,6 +101,7 @@ public class ProjekSDA3 {
                 w++;
             }
         }
+
         edgeCount = w;
 
         edgeFrom[edgeCount]   = from;
@@ -333,6 +334,8 @@ public class ProjekSDA3 {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        
+
         loadDefaultData();
 
         while (true) {
@@ -346,12 +349,26 @@ public class ProjekSDA3 {
 
             try {
                 if (choice.equals("1")) {
-                    System.out.print("From building    : "); String from   = input.nextLine().trim();
-                    System.out.print("To building      : "); String to     = input.nextLine().trim();
-                    System.out.print("Weight           : "); int    w      = Integer.parseInt(input.nextLine().trim());
-                    System.out.print("One-way? (yes/no): ");
-                    int oneWay = input.nextLine().trim().equalsIgnoreCase("yes") ? 1 : 0;
-                    if (w >= 0) addEdge(from, to, w, oneWay, false);
+                    
+                    System.out.print("Enter Admin Password: ");
+                    String password = input.nextLine().trim();
+                    
+                    if (!password.equals("Admin123")) {
+                        System.out.println("Akses Ditolak: Password salah.");
+                    } else {
+                        System.out.print("From building    : "); String from   = input.nextLine().trim();
+                        System.out.print("To building      : "); String to     = input.nextLine().trim();
+                        System.out.print("Weight           : "); int w        = Integer.parseInt(input.nextLine().trim());
+                        System.out.print("One-way? (yes/no): ");
+                        int oneWay = input.nextLine().trim().equalsIgnoreCase("yes") ? 1 : 0;
+                        
+                        if (w >= 0) {
+                            addEdge(from, to, w, oneWay, false);
+                            System.out.println("Edge berhasil ditambahkan!");
+                        } else {
+                            System.out.println("Error: Bobot tidak bisa negatif.");
+                        }
+                    }
 
                 } else if (choice.equals("2")) {
                     findMST();
